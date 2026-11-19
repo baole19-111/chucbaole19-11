@@ -19,6 +19,7 @@
         }
 
         html, body {
+            min-height: 100vh;
             min-height: 100dvh;
             width: 100%;
             overflow-x: hidden;
@@ -29,16 +30,49 @@
         body {
             background: linear-gradient(-45deg, #ffe4e6, #fecdd3, #fbcfe8, #fde8e8);
             background-size: 400% 400%;
+            -webkit-animation: gradientBG 15s ease infinite;
             animation: gradientBG 15s ease infinite;
             padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
         }
 
+        @-webkit-keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
+        @-webkit-keyframes heartbeat {
+            0% {
+                -webkit-transform: scale(1);
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.6);
+            }
+            14% {
+                -webkit-transform: scale(1.05);
+                transform: scale(1.05);
+                box-shadow: 0 0 20px 8px rgba(244, 63, 94, 0.3);
+            }
+            28% {
+                -webkit-transform: scale(1);
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.4);
+            }
+            42% {
+                -webkit-transform: scale(1.05);
+                transform: scale(1.05);
+                box-shadow: 0 0 25px 10px rgba(244, 63, 94, 0.25);
+            }
+            70% {
+                -webkit-transform: scale(1);
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(244, 63, 94, 0);
+            }
+        }
         @keyframes heartbeat {
             0% {
                 transform: scale(1);
@@ -63,97 +97,111 @@
         }
 
         .btn-heartbeat {
+            -webkit-animation: heartbeat 2.2s infinite ease-in-out;
             animation: heartbeat 2.2s infinite ease-in-out;
         }
         .btn-heartbeat:hover,
         .btn-heartbeat:active {
+            -webkit-animation: none;
             animation: none;
+            -webkit-transform: scale(1.03);
             transform: scale(1.03);
             box-shadow: 0 10px 30px rgba(225, 29, 72, 0.45);
         }
 
         .btn-clicked-burst {
+            -webkit-animation: none !important;
             animation: none !important;
+            -webkit-transform: scale(0.94) !important;
             transform: scale(0.94) !important;
             box-shadow: 0 0 35px rgba(244, 63, 94, 0.75) !important;
         }
 
+        @-webkit-keyframes floatText {
+            0%, 100% { -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
+            50% { -webkit-transform: translate3d(0, -6px, 0); transform: translate3d(0, -6px, 0); }
+        }
         @keyframes floatText {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-6px); }
+            0%, 100% { transform: translate3d(0, 0, 0); }
+            50% { transform: translate3d(0, -6px, 0); }
         }
         .animate-float {
+            -webkit-animation: floatText 4s ease-in-out infinite;
             animation: floatText 4s ease-in-out infinite;
         }
 
         .screen-section {
-            transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), filter 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            -webkit-transition: opacity 0.48s cubic-bezier(0.22, 1, 0.36, 1), -webkit-transform 0.48s cubic-bezier(0.22, 1, 0.36, 1);
+            transition: opacity 0.48s cubic-bezier(0.22, 1, 0.36, 1), transform 0.48s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: opacity, transform;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
         }
 
-        .screen-hidden {
+        .screen-inactive {
             display: none;
+        }
+
+        .screen-fading-in {
+            display: flex;
             opacity: 0;
             pointer-events: none;
-            transform: translateY(18px) scale(0.96);
-            filter: blur(6px);
+            -webkit-transform: translate3d(0, 18px, 0) scale(0.97);
+            transform: translate3d(0, 18px, 0) scale(0.97);
         }
 
         .screen-leaving {
             display: flex;
             opacity: 0;
             pointer-events: none;
-            transform: translateY(-18px) scale(1.03);
-            filter: blur(6px);
+            -webkit-transform: translate3d(0, -16px, 0) scale(1.02);
+            transform: translate3d(0, -16px, 0) scale(1.02);
         }
 
-        .screen-visible {
+        .screen-active {
             display: flex;
             opacity: 1;
             pointer-events: auto;
-            transform: translateY(0) scale(1);
-            filter: blur(0);
+            -webkit-transform: translate3d(0, 0, 0) scale(1);
+            transform: translate3d(0, 0, 0) scale(1);
         }
 
         .glass-card {
-            background: rgba(255, 255, 255, 0.68);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border: 1px solid rgba(255, 255, 255, 0.85);
-            box-shadow: 0 20px 50px rgba(225, 29, 72, 0.12);
+            background: rgba(255, 255, 255, 0.84);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.92);
+            box-shadow: 0 18px 45px rgba(225, 29, 72, 0.14);
         }
 
         #transition-veil {
-            background: radial-gradient(circle at center, rgba(255, 228, 230, 0.92) 0%, rgba(251, 113, 133, 0.45) 55%, rgba(255, 255, 255, 0) 100%);
+            background: radial-gradient(circle at center, rgba(255, 228, 230, 0.94) 0%, rgba(251, 113, 133, 0.45) 55%, rgba(255, 255, 255, 0) 100%);
             opacity: 0;
-            transform: scale(0.2);
-            transition: transform 0.75s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.75s ease;
+            -webkit-transform: translate3d(0, 0, 0) scale(0.2);
+            transform: translate3d(0, 0, 0) scale(0.2);
+            -webkit-transition: -webkit-transform 0.65s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.65s ease;
+            transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.65s ease;
+            will-change: opacity, transform;
         }
 
         #transition-veil.active {
             opacity: 1;
-            transform: scale(3.5);
+            -webkit-transform: translate3d(0, 0, 0) scale(3.5);
+            transform: translate3d(0, 0, 0) scale(3.5);
         }
 
-        @keyframes burstHeart {
+        @-webkit-keyframes pulseRing {
             0% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(0.3) rotate(0deg);
+                -webkit-transform: translate(-50%, -50%) scale(0.2);
+                transform: translate(-50%, -50%) scale(0.2);
+                opacity: 0.9;
             }
             100% {
+                -webkit-transform: translate(-50%, -50%) scale(2.8);
+                transform: translate(-50%, -50%) scale(2.8);
                 opacity: 0;
-                transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(var(--scale)) rotate(var(--rot));
             }
         }
-
-        .burst-heart {
-            position: fixed;
-            pointer-events: none;
-            z-index: 40;
-            color: #f43f5e;
-            animation: burstHeart 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            filter: drop-shadow(0 4px 10px rgba(244, 63, 94, 0.35));
-        }
-
         @keyframes pulseRing {
             0% {
                 transform: translate(-50%, -50%) scale(0.2);
@@ -174,6 +222,7 @@
             background: radial-gradient(circle, rgba(251, 113, 133, 0.35) 0%, transparent 70%);
             pointer-events: none;
             z-index: 35;
+            -webkit-animation: pulseRing 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             animation: pulseRing 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
     </style>
@@ -183,9 +232,9 @@
     <canvas id="romantic-canvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
     <div id="transition-veil" class="fixed inset-0 w-full h-full rounded-full pointer-events-none z-20"></div>
 
-    <main class="relative z-10 w-full max-w-5xl px-3 sm:px-6 md:px-8 py-4 sm:py-6 flex items-center justify-center min-h-[100dvh]">
+    <main class="relative z-10 w-full max-w-5xl px-3 sm:px-6 md:px-8 py-4 sm:py-6 flex items-center justify-center min-h-[100vh] min-h-[100dvh]">
 
-        <section id="intro-screen" class="screen-section screen-visible w-full max-w-xl md:max-w-2xl text-center flex-col items-center justify-center px-4 py-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl glass-card my-auto">
+        <section id="intro-screen" class="screen-section screen-active w-full max-w-xl md:max-w-2xl text-center flex-col items-center justify-center px-4 py-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl glass-card my-auto">
             
             <div class="mb-3 sm:mb-4 inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-rose-100/80 text-rose-500 shadow-inner">
                 <i class="fa-solid fa-heart text-xl sm:text-2xl animate-pulse"></i>
@@ -207,7 +256,7 @@
                 <span class="h-[1px] flex-1 bg-gradient-to-l from-transparent to-rose-400"></span>
             </div>
 
-            <button id="start-btn" class="btn-heartbeat group relative inline-flex items-center justify-center gap-2.5 sm:gap-3 w-full sm:w-auto max-w-md px-5 py-3.5 sm:px-8 sm:py-4 text-sm sm:text-base md:text-lg font-bold text-white rounded-full bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 transition-all duration-300 cursor-pointer focus:outline-none focus:ring-4 focus:ring-rose-300">
+            <button id="start-btn" type="button" class="btn-heartbeat group relative inline-flex items-center justify-center gap-2.5 sm:gap-3 w-full sm:w-auto max-w-md px-5 py-3.5 sm:px-8 sm:py-4 text-sm sm:text-base md:text-lg font-bold text-white rounded-full bg-gradient-to-r from-rose-500 via-pink-500 to-rose-600 transition-all duration-300 cursor-pointer focus:outline-none focus:ring-4 focus:ring-rose-300">
                 <i class="fa-solid fa-heart text-rose-100 shrink-0 group-hover:scale-125 transition-transform duration-300"></i>
                 <span class="leading-snug">Cùng xem lại khoảnh khắc chúng ta bên nhau nhé</span>
             </button>
@@ -217,7 +266,7 @@
             </p>
         </section>
 
-        <section id="video-screen" class="screen-section screen-hidden w-full max-w-2xl md:max-w-3xl lg:max-w-4xl flex-col items-center justify-center p-3.5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl glass-card my-auto">
+        <section id="video-screen" class="screen-section screen-inactive w-full max-w-2xl md:max-w-3xl lg:max-w-4xl flex-col items-center justify-center p-3.5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl glass-card my-auto">
             
             <div class="w-full flex flex-col xs:flex-row sm:flex-row items-center justify-between gap-2 mb-3 sm:mb-4 px-0.5 sm:px-1">
                 <div class="flex items-center gap-2 sm:gap-2.5">
@@ -233,7 +282,7 @@
                 </span>
             </div>
 
-            <div class="relative w-full aspect-video max-h-[65dvh] sm:max-h-[70dvh] rounded-xl sm:rounded-2xl overflow-hidden bg-rose-950/95 shadow-2xl ring-2 sm:ring-4 ring-white/80">
+            <div class="relative w-full aspect-video max-h-[65vh] max-h-[65dvh] sm:max-h-[70dvh] rounded-xl sm:rounded-2xl overflow-hidden bg-rose-950/95 shadow-2xl ring-2 sm:ring-4 ring-white/80">
                 <video id="memory-video" class="w-full h-full object-contain" controls playsinline webkit-playsinline preload="auto">
                     <source src="video.mp4" type="video/mp4">
                     Trình duyệt của bạn không hỗ trợ thẻ video HTML5.
@@ -245,7 +294,7 @@
             </p>
 
             <div class="mt-4 sm:mt-5 w-full flex items-center justify-center pt-3 sm:pt-4 border-t border-rose-200/70">
-                <button id="back-btn" class="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-semibold text-rose-700 bg-white/85 hover:bg-white border border-rose-200 shadow-sm hover:shadow transition-all duration-200 cursor-pointer">
+                <button id="back-btn" type="button" class="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-5 py-2.5 sm:py-3 rounded-full text-xs sm:text-sm font-semibold text-rose-700 bg-white/85 hover:bg-white border border-rose-200 shadow-sm hover:shadow transition-all duration-200 cursor-pointer">
                     <i class="fa-solid fa-arrow-left text-xs"></i>
                     <span>Quay lại lời nhắn</span>
                 </button>
@@ -267,44 +316,74 @@
 
         function spawnClickBurst(clientX, clientY) {
             const rect = startBtn.getBoundingClientRect();
-            const originX = clientX || rect.left + rect.width / 2;
-            const originY = clientY || rect.top + rect.height / 2;
+            const originX = (typeof clientX === 'number' && clientX > 0) ? clientX : rect.left + rect.width / 2;
+            const originY = (typeof clientY === 'number' && clientY > 0) ? clientY : rect.top + rect.height / 2;
 
             const ripple = document.createElement('div');
             ripple.className = 'click-ripple';
-            ripple.style.left = `${originX}px`;
-            ripple.style.top = `${originY}px`;
+            ripple.style.left = originX + 'px';
+            ripple.style.top = originY + 'px';
             document.body.appendChild(ripple);
             setTimeout(() => ripple.remove(), 800);
 
-            const icons = ['fa-heart', 'fa-sparkles'];
             const colors = ['#f43f5e', '#ec4899', '#fb7185', '#f472b6'];
             const heartCount = 16;
 
             for (let i = 0; i < heartCount; i++) {
                 const el = document.createElement('i');
-                const iconClass = icons[i % icons.length];
-                el.className = `fa-solid ${iconClass} burst-heart`;
+                el.className = 'fa-solid fa-heart fixed pointer-events-none z-40';
 
                 const angle = (Math.PI * 2 * i) / heartCount + (Math.random() - 0.5) * 0.35;
                 const distance = 70 + Math.random() * 130;
-                const tx = `${Math.cos(angle) * distance}px`;
-                const ty = `${Math.sin(angle) * distance - 35}px`;
-                const scale = (0.75 + Math.random() * 0.9).toFixed(2);
-                const rot = `${Math.floor((Math.random() - 0.5) * 90)}deg`;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance - 35;
+                const scale = 0.75 + Math.random() * 0.9;
+                const rot = Math.floor((Math.random() - 0.5) * 90);
 
-                el.style.left = `${originX}px`;
-                el.style.top = `${originY}px`;
-                el.style.fontSize = `${14 + Math.random() * 10}px`;
+                el.style.left = originX + 'px';
+                el.style.top = originY + 'px';
+                el.style.fontSize = (14 + Math.random() * 10) + 'px';
                 el.style.color = colors[i % colors.length];
-                el.style.setProperty('--tx', tx);
-                el.style.setProperty('--ty', ty);
-                el.style.setProperty('--scale', scale);
-                el.style.setProperty('--rot', rot);
+                el.style.opacity = '1';
+                el.style.transform = 'translate3d(-50%, -50%, 0) scale(0.3) rotate(0deg)';
+                el.style.webkitTransform = 'translate3d(-50%, -50%, 0) scale(0.3) rotate(0deg)';
+                el.style.transition = 'transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.85s ease';
+                el.style.webkitTransition = '-webkit-transform 0.85s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.85s ease';
 
                 document.body.appendChild(el);
-                setTimeout(() => el.remove(), 950);
+
+                setTimeout(() => {
+                    const finalTransform = 'translate3d(calc(-50% + ' + tx + 'px), calc(-50% + ' + ty + 'px), 0) scale(' + scale + ') rotate(' + rot + 'deg)';
+                    el.style.transform = finalTransform;
+                    el.style.webkitTransform = finalTransform;
+                    el.style.opacity = '0';
+                }, 20);
+
+                setTimeout(() => el.remove(), 920);
             }
+        }
+
+        function switchScreen(fromEl, toEl, onAfterSwitch) {
+            fromEl.classList.remove('screen-active');
+            fromEl.classList.add('screen-leaving');
+
+            setTimeout(() => {
+                fromEl.classList.remove('screen-leaving');
+                fromEl.classList.add('screen-inactive');
+
+                toEl.classList.remove('screen-inactive');
+                toEl.classList.add('screen-fading-in');
+
+                setTimeout(() => {
+                    toEl.classList.remove('screen-fading-in');
+                    toEl.classList.add('screen-active');
+                    window.scrollTo(0, 0);
+
+                    if (typeof onAfterSwitch === 'function') {
+                        onAfterSwitch();
+                    }
+                }, 35);
+            }, 380);
         }
 
         startBtn.addEventListener('click', (e) => {
@@ -314,35 +393,21 @@
             startBtn.classList.add('btn-clicked-burst');
             spawnClickBurst(e.clientX, e.clientY);
 
-            for (let i = 0; i < 18; i++) {
+            for (let i = 0; i < 16; i++) {
                 particles.push(new RomanticParticle(false, 'heart', true));
             }
 
             setTimeout(() => {
                 transitionVeil.classList.add('active');
-                introScreen.classList.remove('screen-visible');
-                introScreen.classList.add('screen-leaving');
-            }, 140);
-
-            setTimeout(() => {
-                introScreen.classList.remove('screen-leaving');
-                introScreen.classList.add('screen-hidden');
-
-                videoScreen.classList.remove('screen-hidden');
-                void videoScreen.offsetWidth;
-                videoScreen.classList.add('screen-visible');
-                isVideoMode = true;
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-
-                setTimeout(() => {
-                    transitionVeil.classList.remove('active');
-                    isTransitioning = false;
-                }, 380);
-
-                memoryVideo.play().catch(err => {
-                    console.log('Trình duyệt yêu cầu tương tác để phát âm thanh:', err);
+                switchScreen(introScreen, videoScreen, () => {
+                    isVideoMode = true;
+                    setTimeout(() => {
+                        transitionVeil.classList.remove('active');
+                        isTransitioning = false;
+                    }, 320);
+                    memoryVideo.play().catch(() => {});
                 });
-            }, 520);
+            }, 130);
         });
 
         backBtn.addEventListener('click', () => {
@@ -351,26 +416,15 @@
 
             memoryVideo.pause();
             transitionVeil.classList.add('active');
-
-            videoScreen.classList.remove('screen-visible');
-            videoScreen.classList.add('screen-leaving');
             isVideoMode = false;
 
-            setTimeout(() => {
-                videoScreen.classList.remove('screen-leaving');
-                videoScreen.classList.add('screen-hidden');
-
+            switchScreen(videoScreen, introScreen, () => {
                 startBtn.classList.remove('btn-clicked-burst');
-                introScreen.classList.remove('screen-hidden');
-                void introScreen.offsetWidth;
-                introScreen.classList.add('screen-visible');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-
                 setTimeout(() => {
                     transitionVeil.classList.remove('active');
                     isTransitioning = false;
-                }, 350);
-            }, 420);
+                }, 320);
+            });
         });
 
         const canvas = document.getElementById('romantic-canvas');
@@ -519,10 +573,8 @@
             requestAnimationFrame(animate);
         }
 
-        window.onload = function () {
-            resizeCanvas();
-            animate();
-        };
+        resizeCanvas();
+        animate();
     </script>
 </body>
 </html>
